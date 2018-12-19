@@ -1,0 +1,29 @@
+.red {
+    color: #ff0000;
+  }
+  
+.bold {
+    font-weight: bold;
+  }
+  
+.Cockbit button {
+    border: 1px solid blue;
+    padding: 16px;
+    background-color: green;
+    font: inherit;
+    color: white;
+    curson: pointer;
+}
+  
+.Cockbit button:hover {
+    background-color: lightgreen;
+    color:black;
+}
+  
+.Cockbit button.Red {
+    background-color: red;
+}
+.Cockbit button.Red:hover {
+    background-color: salmon;
+    color: black;
+}
