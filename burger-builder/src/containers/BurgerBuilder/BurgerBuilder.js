@@ -148,7 +148,6 @@ class BurgerBuilder extends Component {
                     {orderSummary}
                 </Modal>
                 {burger}
-                
             </Aux>
         )
     }
