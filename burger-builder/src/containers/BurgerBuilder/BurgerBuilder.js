@@ -7,6 +7,9 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { Route } from 'react-router-dom';
+import Checkout from '../Checkout/Checkout';
+
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -85,38 +88,27 @@ class BurgerBuilder extends Component {
 
     purchaseCancelHandler = () => {
         this.setState({purchasing: false});
+        this.props.history.goBack();
     }
 
     purchaseContinueHandler = () => {
-        this.setState({loading: true})
-        
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Azat Saparbekov',
-                address: {
-                    street: 'Petrova 20',
-                    zipCode: '010000',
-                    country: 'Kazakhstan'
-                },
-                email: 'azat.saparbekov@gmail.com',
-            },
-            deliveryMethod: 'fastest',
+        console.log('i am here', this.state.ingredients)
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: false, purchasing: false })
-               
-            })
-            .catch(error => {
-                this.setState({ loading: false, pushasing: false })
-            });
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString,
+        });
     }
 
 
     render() {
+        console.log('in render')
         const disabledInfo = {
             ...this.state.ingredients
         }
@@ -156,6 +148,7 @@ class BurgerBuilder extends Component {
                     {orderSummary}
                 </Modal>
                 {burger}
+                
             </Aux>
         )
     }
