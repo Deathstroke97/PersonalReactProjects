@@ -12,7 +12,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 import * as actions from '../../store/actions/index';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {...}
@@ -24,9 +24,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount () {
-        console.log(this.props);
-        this.props.onInitIngredients()
-
+       this.props.onInitIngredients()
     }
 
     updatePurchaseState ( ingredients ) {
@@ -41,6 +39,7 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
+        console.log('i am here')
         if (this.props.isAuthenticated) {
             this.setState({ purchasing: true })
         }
